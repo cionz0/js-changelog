@@ -1,0 +1,10 @@
+{
+  "name": "js-changelog",
+  "author": "cionzo",
+  "version": "1.0.0",
+  "dependencies": {
+    "auto-changelog": "^2.4.0",
+    "argparse": "^2.0.1",
+    "commander": "^8.3.0"
+  }
+}
