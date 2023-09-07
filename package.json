@@ -1,0 +1,49 @@
+{
+  "name": "js-changelog",
+  "version": "1.0.0",
+  "description": "Semantic versioning and changelog generation utils",
+  "main": "index.js",
+  "old_dependencies": {
+    "argparse": "^2.0.1",
+    "auto-changelog": "^2.4.0",
+    "commander": "^8.3.0",
+    "handlebars": "^4.7.7",
+    "lru-cache": "^6.0.0",
+    "minimist": "^1.2.6",
+    "neo-async": "^2.6.2",
+    "node-fetch": "^2.6.7",
+    "parse-github-url": "^1.0.2",
+    "semver": "^7.3.7",
+    "source-map": "^0.6.1",
+    "tr46": "^0.0.3",
+    "uglify-js": "^3.15.5",
+    "webidl-conversions": "^3.0.1",
+    "whatwg-url": "^5.0.0",
+    "wordwrap": "^1.0.0",
+    "yallist": "^4.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cionz0/js-changelog.git"
+  },
+  "keywords": [
+    "versioning",
+    "semantic",
+    "versioning",
+    "changelog"
+  ],
+  "author": "cionzo",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/cionz0/js-changelog/issues"
+  },
+  "homepage": "https://github.com/cionz0/js-changelog#readme",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "auto-changelog": "^2.4.0",
+    "prompt-sync": "^4.2.0"
+  }
+}
