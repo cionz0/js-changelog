@@ -12,7 +12,7 @@
 
 const CLI_COMMANDS = require("./cli_commands");
 const {ArgumentParser} = require('argparse')
-const auto_changelog = require("auto-changelog")
+
 /**
  * @typedef {Object} SemVerInfo
  * @property {string} description - The description part of the version tag.
@@ -183,7 +183,7 @@ async function computeNewReleaseTag(releaseType) {
  * @returns {Promise<void>} A promise that resolves when the changelog is updated.
  */
 async function updateChangelog(version, output_file, config_file_path = "./configs/changelog-template.hbs") {
-    auto_changelog.await
+
     CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} --output ${output_file}`);
     console.log(`Changelog for version ${version} created.`);
 }
@@ -275,5 +275,6 @@ if (require.main === module) {
     })
 
     const args = parser.parse_args()
+
     args.action ? module.exports[args.action]() : parser.print_help()
 }
