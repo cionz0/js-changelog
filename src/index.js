@@ -169,6 +169,7 @@ async function computeNewReleaseTag(releaseType) {
                 newVersion = `${current.description}${current.major}.${current.minor}.${current.patch + 1}`;
                 break;
             default:
+                // eslint-disable-next-line no-unused
                 throw new Error(`Invalid release type: "${releaseType}". It must be one of ${JSON.stringify(Object.keys(RELEASE_TYPES))}.`);
         }
 
@@ -187,7 +188,7 @@ async function updateChangelog(version, output_file, config_file_path = "./confi
     if(!version){
         version = await currentRelease()
     }
-    await CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} ${output_file ? '--output '+output_file : ''}`);
+    await CLI_COMMANDS.execute(`auto-changelog --unreleased --template ${config_file_path} ${output_file ? '--output '+output_file : ''}`);
     console.log(`Changelog for version ${version} created.`);
 }
 
@@ -279,5 +280,5 @@ if (require.main === module) {
 
     const args = parser.parse_args()
 
-    args.action ? module.exports[args.action]() : parser.print_help()
+    (await getGitVersion()) && args.action ? module.exports[args.action]() : parser.print_help()
 }
