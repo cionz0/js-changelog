@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Semantic versioning and changelog generation utils",
   "main": "src/index.js",
+  "bin": {
+    "js-changelog": "./src/index.js"
+  },
   "old_dependencies": {
     "argparse": "^2.0.1",
     "auto-changelog": "^2.4.0",
