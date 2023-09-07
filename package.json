@@ -7,7 +7,10 @@
     "js-changelog": "./src/index.js"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "jsdoc --destination ./docs/ --package ./package.json --readme ./README.md --recurse ./src ./test",
+    "lint": "eslint -c eslint.js ./src",
+    "lint:fix": "eslint -c eslint.js --fix ./src"
   },
   "repository": {
     "type": "git",
@@ -29,5 +32,9 @@
     "argparse": "^2.0.1",
     "auto-changelog": "^2.4.0",
     "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "jsdoc": "^4.0.2"
   }
 }

@@ -1,4 +1,5 @@
 module.exports = {
+    // extensions: ['.js'],
     parserOptions: {
         ecmaVersion: 2020,
     },
