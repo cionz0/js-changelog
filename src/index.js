@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * @module src/index
- * @description A module for managing Git tags and versioning.
+ * @module js-changelog
+ * @description A command-line tool for managing Git tags and versioning.
  * @createdOn 2023-09-07
  * @project js-changelog
- * @author cionzo <cionzoh@gmail.com>
+ * @author cionzo
  */
 
 "use strict";
 
+let VERBOSE_MODE = false;
 
 const CLI_COMMANDS = require("./cli_commands");
-const {ArgumentParser} = require('argparse')
-
+const { ArgumentParser } = require('argparse');
 
 /**
  * @typedef {Object} SemVerInfo
@@ -22,15 +22,14 @@ const {ArgumentParser} = require('argparse')
  * @property {number} patch - The patch version number.
  */
 
-
 /**
- * The regular expression pattern for parsing SEMVER tags.
+ * Regular expression pattern for parsing SEMVER tags.
  * @type {RegExp}
  */
 const SEMVER_TAG_PATTERN = /(?<description>[a-zA-Z]*)(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)\s*/g;
 
 /**
- * The default SEMVER version when no tags are available.
+ * Default SEMVER version when no tags are available.
  * @type {string}
  */
 const SEMVER_ZERO = "0.0.0";
@@ -72,7 +71,7 @@ async function isGitCommandAvailable() {
  */
 async function tagCurrentCommit(tag) {
     if (!tag.match(SEMVER_TAG_PATTERN)) {
-        throw new Error(`The provided tag (${tag}) does not respect SEMVER format (${SEMVER_TAG_PATTERN}).`);
+        throw new Error(`The provided tag (${tag}) does not conform to SEMVER format (${SEMVER_TAG_PATTERN}).`);
     }
     await CLI_COMMANDS.execute(`git tag ${tag}`);
 }
@@ -115,18 +114,18 @@ function parseVersionTag(versionTag) {
     const match = SEMVER_TAG_PATTERN.exec(versionTag);
 
     if (!match || !match.groups) {
-        throw new Error(`Cannot parse version tag '${versionTag}'. It does not match the expected pattern.`);
+        throw new Error(`Unable to parse version tag '${versionTag}'. It does not match the expected pattern.`);
     }
 
-    const {description, major, minor, patch} = match.groups;
+    const { description, major, minor, patch } = match.groups;
 
-    return {description, major: Number(major), minor: Number(minor), patch: Number(patch)};
+    return { description, major: Number(major), minor: Number(minor), patch: Number(patch) };
 }
 
 /**
  * Get the current release version or its components.
  * @param {boolean} [parsed=false] - If true, parse the version tag and return its components.
- * @returns {Promise<string|SemVerInfo>} A promise that resolves to the current release version as a string, or an object
+ * @returns {Promise<string|SemVerInfo>} A promise that resolves to the current release version as a string or an object
  *   with 'description', 'major', 'minor', and 'patch' properties if 'parsed' is true.
  * @throws {Error} If the 'git' command is not available or if 'parsed' is true and the version tag cannot be parsed.
  */
@@ -142,20 +141,22 @@ async function currentRelease(parsed = false) {
         return parseVersionTag(currentReleaseStr);
     }
 
-
+    if (VERBOSE_MODE) {
+        console.log(`Current release is ${currentReleaseStr}`);
+    }
     return currentReleaseStr;
 }
 
 /**
  * Compute a new release tag based on the current version and the specified release type.
- *
  * @param {string} releaseType - The release type ("major", "minor", or "patch").
  * @returns {Promise<string>} A promise that resolves to the new release tag.
  * @throws {Error} If the current release cannot be parsed or if the release type is invalid.
  */
 async function computeNewReleaseTag(releaseType) {
+    let current = "\"undefined\"";
     try {
-        const current = await currentRelease(true);
+        current = await currentRelease(true);
         let newVersion;
 
         switch (releaseType) {
@@ -169,27 +170,44 @@ async function computeNewReleaseTag(releaseType) {
                 newVersion = `${current.description}${current.major}.${current.minor}.${current.patch + 1}`;
                 break;
             default:
-                // eslint-disable-next-line no-unused
-                throw new Error(`Invalid release type: "${releaseType}". It must be one of ${JSON.stringify(Object.keys(RELEASE_TYPES))}.`);
+                throw new Error(`Invalid release type: "${releaseType}". It must be one of ${Object.keys(RELEASE_TYPES)}.`);
         }
 
         return newVersion;
     } catch (error) {
-        throw new Error(`Unable to compute a new release tag: ${error.message}`);
+        throw new Error(`Unable to compute a new release tag starting from ${current}: ${error.message}`);
     }
 }
 
 /**
  * Update the changelog for a given version.
  * @param {string} version - The version for which the changelog is updated.
+ * @param {string} [output_file] - The output file path for the changelog.
+ * @param {string} [config_file_path] - The configuration file path for the changelog template.
  * @returns {Promise<void>} A promise that resolves when the changelog is updated.
  */
 async function updateChangelog(version, output_file, config_file_path = "./node_modules/@cionzo/js-changelog/configs/changelog-template.hbs") {
-    if(!version){
-        version = await currentRelease()
+    if (!version) {
+        version = await currentRelease();
     }
-    await CLI_COMMANDS.execute(`auto-changelog --unreleased --template ${config_file_path} ${output_file ? '--output '+output_file : ''}`);
+    await CLI_COMMANDS.execute(`auto-changelog --unreleased --template ${config_file_path} ${output_file ? '--output ' + output_file : ''}`);
     console.log(`Changelog for version ${version} created.`);
+}
+
+/**
+ * Create a new release, including tagging and updating the changelog.
+ * @param {string} releaseType - The release type ("major", "minor", or "patch").
+ * @throws {Error} If an error occurs during the release process.
+ */
+async function createRelease(releaseType) {
+    try {
+        const newTag = await computeNewReleaseTag(releaseType);
+        await updatePackageJsonVersion(newTag);
+        await tagCurrentCommit(newTag);
+        await updateChangelog(newTag);
+    } catch (error) {
+        throw new Error(`Failed creating ${releaseType} release: ${error.message}`);
+    }
 }
 
 /**
@@ -197,13 +215,7 @@ async function updateChangelog(version, output_file, config_file_path = "./node_
  * @throws {Error} If an error occurs during the release process.
  */
 async function majorRelease() {
-    try {
-        const newRel = await computeNewReleaseTag(RELEASE_TYPES.MAJOR);
-        await tagCurrentCommit(newRel);
-        await updateChangelog(newRel);
-    } catch (error) {
-        throw new Error(`Major release failed: ${error.message}`);
-    }
+    await createRelease(RELEASE_TYPES.MAJOR);
 }
 
 /**
@@ -211,13 +223,7 @@ async function majorRelease() {
  * @throws {Error} If an error occurs during the release process.
  */
 async function minorRelease() {
-    try {
-        const newRel = await computeNewReleaseTag(RELEASE_TYPES.MINOR);
-        await tagCurrentCommit(newRel);
-        await updateChangelog(newRel);
-    } catch (error) {
-        throw new Error(`Minor release failed: ${error.message}`);
-    }
+    await createRelease(RELEASE_TYPES.MINOR);
 }
 
 /**
@@ -225,61 +231,88 @@ async function minorRelease() {
  * @throws {Error} If an error occurs during the release process.
  */
 async function patchRelease() {
-    try {
-        const newRel = await computeNewReleaseTag(RELEASE_TYPES.PATCH);
-        await tagCurrentCommit(newRel);
-        await updateChangelog(newRel);
-    } catch (error) {
-        throw new Error(`Patch release failed: ${error.message}`);
-    }
+    await createRelease(RELEASE_TYPES.PATCH);
 }
 
-module.exports = {currentRelease, updateChangelog, majorRelease, minorRelease, patchRelease};
+/**
+ * Update the version in package.json.
+ * @param {string} newRel - The new release version.
+ * @returns {Promise<void>} A promise that resolves when the package.json is updated.
+ */
+async function updatePackageJsonVersion(newRel) {
+    const PACKAGE_JSON_FILENAME = "package.json";
+    const fs = require("fs");
+    const PACKAGE_JSON_DATA = JSON.parse(fs.readFileSync(PACKAGE_JSON_FILENAME).toString());
+    PACKAGE_JSON_DATA.version = newRel.trim();
+    fs.writeFileSync(PACKAGE_JSON_FILENAME, JSON.stringify(PACKAGE_JSON_DATA, undefined, 4));
+    await CLI_COMMANDS.execute(`git add ${PACKAGE_JSON_FILENAME}`);
+    await CLI_COMMANDS.execute(`git commit --amend`);
+}
+
+module.exports = {
+    currentRelease,
+    updateChangelog,
+    majorRelease,
+    minorRelease,
+    patchRelease
+};
 
 
 if (require.main === module) {
-
-    let parser = new ArgumentParser({
+    const parser = new ArgumentParser({
         description: 'Manages releases for this project.',
         add_help: true,
-    })
+    });
 
-    parser.add_argument('PROJECT_NAME', {help: 'The project name'})
-    parser.add_argument('-v', '--verbose', {action: 'store_true'})
+    parser.add_argument('PROJECT_NAME', { help: 'The project name' });
+
+    // Define actions for command-line arguments
     parser.add_argument('-c', '--current', {
         dest: 'action',
         action: 'store_const',
         const: 'currentRelease',
         help: 'returns the current release number',
-    })
+    });
     parser.add_argument('-M', '--major', {
         dest: 'action',
         action: 'store_const',
         const: 'majorRelease',
         help: 'creates a new major release',
-    })
+    });
     parser.add_argument('-m', '--minor', {
         dest: 'action',
         action: 'store_const',
         const: 'minorRelease',
         help: 'creates a new minor release',
-    })
+    });
     parser.add_argument('-p', '--patch', {
         dest: 'action',
         action: 'store_const',
         const: 'patchRelease',
         help: 'creates a new patch release',
-    })
-
+    });
     parser.add_argument('-cl', '--changelog', {
         dest: 'action',
         action: 'store_const',
         const: 'updateChangelog',
         help: 'updates the changelog file',
-    })
+    });
 
-    const args = parser.parse_args()
+    // Add a boolean flag for verbose, and set it to true when --current is present
+    parser.add_argument('-v', '--verbose', {
+        dest: 'verbose',
+        action: 'store_true',
+        default: false, // Default to false
+        help: 'enable verbose output',
+    });
 
+    const args = parser.parse_args();
 
-    args.action ? module.exports[args.action]() : parser.print_help()
+    if (args.action === 'currentRelease') {
+        args.verbose = true; // Set verbose to true when --current is passed
+    }
+
+    VERBOSE_MODE = args.verbose
+
+    args.action ? module.exports[args.action](args) : parser.print_help();
 }
