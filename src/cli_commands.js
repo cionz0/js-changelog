@@ -11,7 +11,7 @@
 
 const {promisify} = require('util')
 const exec = promisify(require('child_process').exec)
-require('child_process').execSync()
+// require('child_process').execSync()
 
 async function execute(command) {
  const execution = await exec(command)
