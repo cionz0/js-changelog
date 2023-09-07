@@ -10,7 +10,9 @@
         "test": "mocha",
         "docs": "jsdoc --destination ./docs/ --package ./package.json --readme ./README.md --recurse ./src ./test",
         "lint": "eslint -c eslint.js ./src",
-        "lint:fix": "eslint -c eslint.js --fix ./src"
+        "lint:fix": "eslint -c eslint.js --fix ./src",
+
+        "changelog":"node src/index.js --changelog -clt ./configs/changelog-template.hbs "
     },
     "repository": {
         "type": "git",
