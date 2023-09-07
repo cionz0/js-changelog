@@ -105,6 +105,7 @@ async function updatePackageJsonVersion(newRel, args) {
     fs.writeFileSync(args.package_json, JSON.stringify(PACKAGE_JSON_DATA, undefined, 4));
     await CLI_COMMANDS.execute(`git add ${args.package_json}`);
     await CLI_COMMANDS.execute("git commit --amend --no-edit");
+    await CLI_COMMANDS.execute("git push");
 }
 
 
