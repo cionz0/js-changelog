@@ -141,6 +141,7 @@ async function currentRelease(parsed = false) {
         return parseVersionTag(currentReleaseStr);
     }
 
+
     return currentReleaseStr;
 }
 
@@ -274,5 +275,5 @@ if (require.main === module) {
     })
 
     const args = parser.parse_args()
-    console.log("ciao")
+    args.action ? module.exports[args.action]() : parser.print_help()
 }
