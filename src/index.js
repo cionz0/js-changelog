@@ -273,4 +273,5 @@ if (require.main === module) {
         })
 
     const args = parser.parse_args()
+    console.log("ciao")
 }
