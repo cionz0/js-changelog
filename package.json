@@ -1,6 +1,6 @@
 {
     "name": "@cionzo/js-changelog",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Semantic versioning and changelog generation utils",
     "main": "./src/index.js",
     "bin": {
@@ -11,8 +11,11 @@
         "docs": "jsdoc --destination ./docs/ --package ./package.json --readme ./README.md --recurse ./src ./test",
         "lint": "eslint -c eslint.js ./src",
         "lint:fix": "eslint -c eslint.js --fix ./src",
-
-        "changelog":"node src/index.js --changelog -clt ./configs/changelog-template.hbs "
+        "changelog": "node src/index.js --changelog -clt ./configs/changelog-template.hbs ",
+        "major": "node src/index.js -M  -clt ./configs/changelog-template.hbs ",
+        "minor": "node src/index.js -m  -clt ./configs/changelog-template.hbs ",
+        "patch": "node src/index.js -p  -clt ./configs/changelog-template.hbs ",
+        "current": "node src/index.js --current --changelog -clt ./configs/changelog-template.hbs "
     },
     "repository": {
         "type": "git",
