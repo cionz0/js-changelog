@@ -12,7 +12,7 @@
 
 const CLI_COMMANDS = require("./cli_commands");
 const {ArgumentParser} = require('argparse')
-const {getGitVersion} = require("auto-changelog/src/utils");
+
 
 /**
  * @typedef {Object} SemVerInfo
@@ -280,5 +280,6 @@ if (require.main === module) {
 
     const args = parser.parse_args()
 
-    (await getGitVersion()) && args.action ? module.exports[args.action]() : parser.print_help()
+
+    args.action ? module.exports[args.action]() : parser.print_help()
 }
