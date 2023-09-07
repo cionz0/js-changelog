@@ -180,7 +180,7 @@ async function computeNewReleaseTag(releaseType) {
  * @param {string} version - The version for which the changelog is updated.
  * @returns {Promise<void>} A promise that resolves when the changelog is updated.
  */
-async function updateChangelog(version, output_file, config_file_path="./configs/changelog-template.hbs") {
+async function updateChangelog(version, output_file, config_file_path = "./configs/changelog-template.hbs") {
     auto_changelog.await
     CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} --output ${output_file}`);
     console.log(`Changelog for version ${version} created.`);
@@ -239,38 +239,38 @@ if (require.main === module) {
     })
 
     parser.add_argument('PROJECT_NAME', {help: 'The project name'})
-        .add_argument('-v', '--verbose', {action: 'store_true'})
-        .add_argument('-c', '--current', {
-            dest: 'action',
-            action: 'store_const',
-            const: 'currentRelease',
-            help: 'returns the current release number',
-        })
-        .add_argument('-M', '--major', {
-            dest: 'action',
-            action: 'store_const',
-            const: 'majorRelease',
-            help: 'creates a new major release',
-        })
-        .add_argument('-m', '--minor', {
-            dest: 'action',
-            action: 'store_const',
-            const: 'minorRelease',
-            help: 'creates a new minor release',
-        })
-        .add_argument('-p', '--patch', {
-            dest: 'action',
-            action: 'store_const',
-            const: 'patchRelease',
-            help: 'creates a new patch release',
-        })
+    parser.add_argument('-v', '--verbose', {action: 'store_true'})
+    parser.add_argument('-c', '--current', {
+        dest: 'action',
+        action: 'store_const',
+        const: 'currentRelease',
+        help: 'returns the current release number',
+    })
+    parser.add_argument('-M', '--major', {
+        dest: 'action',
+        action: 'store_const',
+        const: 'majorRelease',
+        help: 'creates a new major release',
+    })
+    parser.add_argument('-m', '--minor', {
+        dest: 'action',
+        action: 'store_const',
+        const: 'minorRelease',
+        help: 'creates a new minor release',
+    })
+    parser.add_argument('-p', '--patch', {
+        dest: 'action',
+        action: 'store_const',
+        const: 'patchRelease',
+        help: 'creates a new patch release',
+    })
 
-        .add_argument('-cl', '--changelog', {
-            dest: 'action',
-            action: 'store_const',
-            const: 'updateChangelog',
-            help: 'updates the changelog file',
-        })
+    parser.add_argument('-cl', '--changelog', {
+        dest: 'action',
+        action: 'store_const',
+        const: 'updateChangelog',
+        help: 'updates the changelog file',
+    })
 
     const args = parser.parse_args()
     console.log("ciao")
