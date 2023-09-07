@@ -81,6 +81,7 @@ async function updateChangelog(args, versionTagStr) {
 async function createRelease(args) {
     try {
         const newTag = await support.computeNewReleaseTag(args);
+        console.log(`new release tag is ${newTag}`)
         await updatePackageJsonVersion(newTag, args);
         await support.tagCurrentCommit(newTag);
         await updateChangelog(args, newTag);
