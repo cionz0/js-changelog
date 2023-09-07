@@ -12,7 +12,11 @@
         "lint": "eslint -c eslint.js ./src",
         "lint:fix": "eslint -c eslint.js --fix ./src",
 
-        "changelog":"node src/index.js --changelog -clt ./configs/changelog-template.hbs "
+        "changelog":"node src/index.js --changelog -clt ./configs/changelog-template.hbs ",
+        "major":"node src/index.js -M --changelog -clt ./configs/changelog-template.hbs ",
+        "minor":"node src/index.js -m --changelog -clt ./configs/changelog-template.hbs ",
+        "patch":"node src/index.js -p --changelog -clt ./configs/changelog-template.hbs ",
+        "current":"node src/index.js --current --changelog -clt ./configs/changelog-template.hbs "
     },
     "repository": {
         "type": "git",
