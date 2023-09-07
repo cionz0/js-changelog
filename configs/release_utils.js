@@ -7,7 +7,7 @@
  * @module configs/release_utils
  * @author cionzo <cionzo@filotrack.com>
  */
-// 'use strict'
+"use strict"
 
 module.exports = {
   major_release,

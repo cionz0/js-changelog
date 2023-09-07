@@ -21,6 +21,7 @@ changelog:
 	node --experimental-repl-await  ./configs/release_utils.js -cl $(PROJECT_NAME)
 
 current:
+	echo $(PROJECT_NAME)
 	node --experimental-repl-await ./configs/release_utils.js -c $(PROJECT_NAME)
 
 
