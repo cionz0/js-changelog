@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * @module src/index
  * @description A module for managing Git tags and versioning.
