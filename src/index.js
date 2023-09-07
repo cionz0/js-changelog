@@ -184,7 +184,7 @@ async function computeNewReleaseTag(releaseType) {
  * @param {string} version - The version for which the changelog is updated.
  * @returns {Promise<void>} A promise that resolves when the changelog is updated.
  */
-async function updateChangelog(version, output_file, config_file_path = "@cionzo/js-changelog/configs/changelog-template.hbs") {
+async function updateChangelog(version, output_file, config_file_path = "./node_modules/@cionzo/js-changelog/configs/changelog-template.hbs") {
     if(!version){
         version = await currentRelease()
     }
