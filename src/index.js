@@ -187,7 +187,7 @@ async function updateChangelog(version, output_file, config_file_path = "./confi
     if(!version){
         version = await currentRelease()
     }
-    await CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} --output ${output_file}`);
+    await CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} ${output_file ? '--output '+output_file : ''}`);
     console.log(`Changelog for version ${version} created.`);
 }
 
