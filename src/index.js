@@ -12,6 +12,7 @@
 
 const CLI_COMMANDS = require("./cli_commands");
 const {ArgumentParser} = require('argparse')
+const {getGitVersion} = require("auto-changelog/src/utils");
 
 /**
  * @typedef {Object} SemVerInfo
@@ -183,8 +184,10 @@ async function computeNewReleaseTag(releaseType) {
  * @returns {Promise<void>} A promise that resolves when the changelog is updated.
  */
 async function updateChangelog(version, output_file, config_file_path = "./configs/changelog-template.hbs") {
-
-    CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} --output ${output_file}`);
+    if(!version){
+        version = await currentRelease()
+    }
+    await CLI_COMMANDS.execute(`auto-changelog --unreleased --config ${config_file_path} --output ${output_file}`);
     console.log(`Changelog for version ${version} created.`);
 }
 
