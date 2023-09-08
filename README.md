@@ -1,4 +1,4 @@
-# @cionzo/js-changelog 1.2.2 
+# @cionzo/js-changelog 1.3.1 
 
 Semantic versioning and changelog generation utils
 

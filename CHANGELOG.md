@@ -1,6 +1,12 @@
 # Unreleased
 [8 September 2023]
 
+### Other
+
+* 2023-09-08T19:30:30.000Z [cionzo] - other: updated readme ([`a3710bb`](https://github.com/cionz0/js-changelog/commit/a3710bbfa417b8357f1f75778334b671290c168b))
+# 1.3.0
+[8 September 2023]
+
 ### Fixes
 
 * 2023-09-08T19:23:20.000Z [cionzo] - fix: solved git issues ([`09db784`](https://github.com/cionz0/js-changelog/commit/09db784fa3704081f9d063638d4f3909d7d47d52))
@@ -8,7 +14,7 @@
 
 ### Other
 
-* 2023-09-08T19:26:04.000Z [cionzo] - version bump: 1.3.0 ([`fc8f3e3`](https://github.com/cionz0/js-changelog/commit/fc8f3e3b55ed9c6cb428dc4ebfc9f4384e94c951))
+* 2023-09-08T19:26:04.000Z [cionzo] - version bump: 1.3.0 ([`76b3c79`](https://github.com/cionz0/js-changelog/commit/76b3c79d298f2175efe815b6e5f91fd7c6236ea9))
 # 1.2.2
 [8 September 2023]
 
