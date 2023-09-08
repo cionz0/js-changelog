@@ -1,8 +1,12 @@
 # Unreleased
 [8 September 2023]
 
+# 1.2.1
+[8 September 2023]
+
 ### Fixes
 
+* 2023-09-08T06:54:56.000Z [cionzo] - fix: set action object for currentRelease ([`93f98de`](https://github.com/cionz0/js-changelog/commit/93f98de9459f04777d432883bb3199a53b9a27f1))
 * 2023-09-08T06:54:56.000Z [cionzo] - fix: set action object for currentRelease ([`14c5d70`](https://github.com/cionz0/js-changelog/commit/14c5d70c6d4c2c480440e6fee4cfb3b9f6677855))
 
 ### Other

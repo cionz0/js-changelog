@@ -103,6 +103,8 @@ async function updatePackageJsonVersion(newRel, args) {
     const PACKAGE_JSON_DATA = JSON.parse(fs.readFileSync(args.package_json).toString());
     PACKAGE_JSON_DATA.version = newRel.trim();
     fs.writeFileSync(args.package_json, JSON.stringify(PACKAGE_JSON_DATA, undefined, 4));
+
+    await CLI_COMMANDS.execute(`git pull`);
     await CLI_COMMANDS.execute(`git add ${args.package_json}`);
     await CLI_COMMANDS.execute("git commit --amend --no-edit");
     await CLI_COMMANDS.execute("git push");
@@ -113,7 +115,8 @@ async function updatePackageJsonVersion(newRel, args) {
 module.exports = {
 
     updateChangelog,
-    createRelease
+    createRelease,
+    currentRelease: support.currentRelease
 };
 
 // Handle command-line execution
