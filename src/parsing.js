@@ -26,7 +26,7 @@ function getParser() {
     parser.add_argument("-c", "--current", {
         dest: "action",
         action: "store_const",
-        const: "currentRelease",
+        const: {name: "currentRelease"},
         help: "returns the current release tag",
     });
 
