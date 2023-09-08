@@ -86,7 +86,7 @@ function getParser() {
  * @returns {void} Nothing.
  */
 function processArgs(args) {
-    if (args.action === "currentRelease") {
+    if (args.action && args.action.name  === "currentRelease") {
         args.verbose = true; // Set verbose to true when --current is passed
     }
 }
