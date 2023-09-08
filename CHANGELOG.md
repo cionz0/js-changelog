@@ -4,6 +4,8 @@
 ### Other
 
 * 2023-09-08T19:30:30.000Z [cionzo] - other: updated readme ([`a3710bb`](https://github.com/cionz0/js-changelog/commit/a3710bbfa417b8357f1f75778334b671290c168b))
+* 2023-09-08T19:31:19.000Z [cionzo] - other: updated readme ([`1ee7fe0`](https://github.com/cionz0/js-changelog/commit/1ee7fe0864e18a640131203445593cc459f72b25))
+* 2023-09-08T19:31:29.000Z [cionzo] - version bump: 1.3.1 ([`be79ae5`](https://github.com/cionz0/js-changelog/commit/be79ae5bf96f9fd5c7e5b60d629ff332210987e9))
 # 1.3.0
 [8 September 2023]
 
