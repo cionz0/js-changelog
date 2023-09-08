@@ -1,6 +1,14 @@
 # Unreleased
 [8 September 2023]
 
+### Fixes
+
+* 2023-09-08T19:23:20.000Z [cionzo] - fix: solved git issues ([`09db784`](https://github.com/cionz0/js-changelog/commit/09db784fa3704081f9d063638d4f3909d7d47d52))
+* 2023-09-08T07:06:34.000Z [cionzo] - fix: set verbose mode when cli options ask for current release ([`d736d0a`](https://github.com/cionz0/js-changelog/commit/d736d0a23b65d05d7f9b138ef8c87a796d7f55c1))
+
+### Other
+
+* 2023-09-08T19:26:04.000Z [cionzo] - version bump: 1.3.0 ([`fc8f3e3`](https://github.com/cionz0/js-changelog/commit/fc8f3e3b55ed9c6cb428dc4ebfc9f4384e94c951))
 # 1.2.2
 [8 September 2023]
 
