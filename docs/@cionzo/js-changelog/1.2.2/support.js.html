@@ -1,11 +1,39 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: support.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: support.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * This module ...
  *
- * <!-- do not type below this line -->
+ * &lt;!-- do not type below this line -->
  * Created on: 07/09/23.
  * @module src/support
  * @project js-changelog
- * @author cionzo <cionzo@filotrack.com>
+ * @author cionzo &lt;cionzo@filotrack.com>
  */
 "use strict"
 
@@ -17,7 +45,7 @@ const {SemVerInfo, CommandLineArgs} = require("./type_definitions")
 
 /**
  * Check if the 'git' command is available in the system.
- * @returns {Promise<boolean>} A promise that resolves to true if the 'git' command is available; otherwise, false.
+ * @returns {Promise&lt;boolean>} A promise that resolves to true if the 'git' command is available; otherwise, false.
  * @throws {Error} If the 'git' command is not available.
  * @private
  */
@@ -33,7 +61,7 @@ async function isGitCommandAvailable() {
 /**
  * Get the associated tag for a given commit SHA.
  * @param {string} commitSHA - The commit SHA to find the associated tag.
- * @returns {Promise<string|null>} A promise that resolves to the associated tag or null if no tag is found.
+ * @returns {Promise&lt;string|null>} A promise that resolves to the associated tag or null if no tag is found.
  * @private
  */
 async function getAssociatedTag(commitSHA) {
@@ -45,7 +73,7 @@ async function getAssociatedTag(commitSHA) {
 }
 /**
  * Get the SHA of the last tagged commit.
- * @returns {Promise<string|null>} A promise that resolves to the SHA of the last tagged commit or null if no tags exist.
+ * @returns {Promise&lt;string|null>} A promise that resolves to the SHA of the last tagged commit or null if no tags exist.
  * @private
  */
 async function getLastTaggedCommitSHA() {
@@ -79,7 +107,7 @@ function parseVersionTag(versionTag) {
 /**
  * Tag the current commit with a given tag.
  * @param {string} tag - The tag to apply to the current commit.
- * @returns {Promise<void>} A promise that resolves when the commit is tagged successfully.
+ * @returns {Promise&lt;void>} A promise that resolves when the commit is tagged successfully.
  * @throws {Error} If the provided tag does not match the SEMVER format.
  * @private
  */
@@ -96,7 +124,7 @@ async function tagCurrentCommit(tag) {
  * Get the current release version or its components.
  * @param {CommandLineArgs} args - Command line arguments.
  * @param {boolean} [parsed] - If true, parse the version tag and return its components.
- * @returns {Promise<string|SemVerInfo>} A promise that resolves to the current release version as a string or an object
+ * @returns {Promise&lt;string|SemVerInfo>} A promise that resolves to the current release version as a string or an object
  * with 'description', 'major', 'minor', and 'patch' properties if 'parsed' is true.
  * @throws {Error} If the 'git' command is not available or if 'parsed' is true and the version tag cannot be parsed.
  */
@@ -121,7 +149,7 @@ async function currentRelease(args,parsed = false) {
 /**
  * Compute a new release tag based on the current version and the specified release type.
  * @param {CommandLineArgs} args - Command line arguments.
- * @returns {Promise<string>} A promise that resolves to the new release tag.
+ * @returns {Promise&lt;string>} A promise that resolves to the new release tag.
  * @throws {Error} If the current release cannot be parsed or if the release type is invalid.
  */
 async function computeNewReleaseTag(args) {
@@ -152,7 +180,7 @@ async function computeNewReleaseTag(args) {
 
 /**
  * Checks if the current branch is updated to the latest remote version.
- * @returns {Promise<boolean>} A Promise that resolves to true if the branch is updated.
+ * @returns {Promise&lt;boolean>} A Promise that resolves to true if the branch is updated.
  * @throws {Error} If the current local branch is not updated to the remote version.
  */
 async function isBranchUpdated() {
@@ -190,4 +218,26 @@ module.exports = {
     computeNewReleaseTag,
     isBranchUpdated
 
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-js-changelog.html">js-changelog</a></li><li><a href="module-src_cli_commands.html">src/cli_commands</a></li><li><a href="module-src_defaults.html">src/defaults</a></li><li><a href="module-src_parsing.html">src/parsing</a></li><li><a href="module-src_support.html">src/support</a></li><li><a href="module-src_type_definitions.html">src/type_definitions</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 08 2023 21:22:16 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

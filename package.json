@@ -8,7 +8,7 @@
     },
     "scripts": {
         "test": "mocha",
-        "docs": "jsdoc --destination ./docs/ --package ./package.json --readme ./README.md --recurse ./src ./test",
+        "docs": "jsdoc --destination ./docs/ --package ./package.json --readme ./README.md --recurse ./src",
         "lint": "eslint -c eslint.js ./src",
         "lint:fix": "eslint -c eslint.js --fix ./src",
         "changelog": "node src/index.js --changelog -clt ./configs/changelog-template.hbs ",
@@ -29,6 +29,7 @@
     ],
     "author": "cionzo",
     "license": "GPL-3.0",
+    "install_from_git": "only",
     "bugs": {
         "url": "https://github.com/cionz0/js-changelog/issues"
     },
@@ -40,6 +41,7 @@
     },
     "devDependencies": {
         "eslint": "^8.48.0",
-        "jsdoc": "^4.0.2"
+        "jsdoc": "^4.0.2",
+        "package-json-to-readme": "github:cionz0/package-json-to-readme"
     }
 }
