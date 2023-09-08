@@ -1,6 +1,13 @@
 # Unreleased
 [8 September 2023]
 
+# 1.2.2
+[8 September 2023]
+
+### Fixes
+
+* 2023-09-08T07:06:34.000Z [cionzo] - fix: set verbose mode when cli options ask for current release ([`895e853`](https://github.com/cionz0/js-changelog/commit/895e853e4f8402283335c9bb2478a565073f7239))
+
 # 1.2.1
 [8 September 2023]
 
