@@ -18,11 +18,10 @@ npm install git+https://github.com/cionz0/js-changelog --save-dev
 
 ## Usage
 
-You are assumed to have committed (but not yet pushed) your changes before using this tool.
-
+### Configuration
 Add the target `js-changelog` to the `scripts` section of your `package.json` file.
 
-```javascript
+```JSON
 {
     // ...
     "scripts": {
@@ -35,6 +34,15 @@ Add the target `js-changelog` to the `scripts` section of your `package.json` fi
 Remember that, in order to pass arguments to a node-invoked target, you should use `--`.
 ```sh
 node js-changelog -- --help
+```
+### Example 
+
+In order to correctly use this tool, your changes must be already committed and pushed.
+Your local and remote repositories are hence assumed to refer to the same commit.
+
+At this point, you can run something like the following command.
+```sh
+node js-changelog -- --minor
 ```
 
 ## Tests
